@@ -29,7 +29,9 @@ export default function Home() {
       {productSection.map((productSection, index) => (
         <Products
           title={productSection.title}
-          url={`${PRODUCT_API}/products/?offset=${(index + 1) * 10}&limit=10`}
+          url={`${PRODUCT_API}/products/?offset=${
+            (index + 1) * 10
+          }&limit=10`}
           key={index}
         />
       ))}
