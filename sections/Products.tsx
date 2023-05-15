@@ -1,11 +1,10 @@
 import React from "react";
 import { sections } from "./styles";
-import { Swiper, SwiperSlide } from "swiper/react";
+
 import useSWR from "swr";
-import { Autoplay, Navigation } from "swiper";
-import ProductCard from "@/components/ProductCard";
 import { product } from "@/helpers/types";
 import { dealOff } from "@/helpers/functions";
+import ProductSlide from "@/components/productSlide";
 
 type productProps = {
   title: string;
@@ -28,27 +27,7 @@ export default function Products({ title, url }: productProps) {
       <h2 className="text-[36px] text-head-color text-center mb-8">{title}</h2>
 
       <div className="container m-auto">
-        <Swiper
-          slidesPerView={1}
-          breakpoints={{
-            1024: {
-              slidesPerView: 4,
-            },
-            568: {
-              slidesPerView: 2,
-            },
-          }}
-          autoplay={true}
-          loop={true}
-          modules={[Autoplay, Navigation]}
-          navigation
-        >
-          {products?.map((product, index) => (
-            <SwiperSlide className={`bg-transparent  h-auto py-8`} key={index}>
-              <ProductCard product={product} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <ProductSlide products={products} />
       </div>
     </section>
   );

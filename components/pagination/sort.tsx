@@ -12,7 +12,7 @@ import { sortProducts, filterPrice } from "@/store/products";
 
 export default function Sort() {
   const dispatch = useAppDispatch();
-  const { products, filteredCatgories, minPrice, maxPrice } = useAppSelector(
+  const { products, filteredCatagories, minPrice, maxPrice } = useAppSelector(
     (state) => state.products
   );
   const [sortType, setSortType] = useState<string>("");
@@ -24,7 +24,7 @@ export default function Sort() {
         dispatch(
           filterPrice({
             products: [...products],
-            catograies: [...filteredCatgories],
+            catagories: [...filteredCatagories],
             sortType: "",
             maxPrice,
             minPrice,
@@ -39,7 +39,7 @@ export default function Sort() {
         );
       }
     },
-    [dispatch, filteredCatgories, maxPrice, minPrice, products, sortType]
+    [dispatch, filteredCatagories, maxPrice, minPrice, products, sortType]
   );
 
   return (
@@ -124,7 +124,7 @@ export default function Sort() {
 }
 function filterSlide(arg0: {
   products: import("../../helpers/types").product[];
-  catograies: string[];
+  catagories: string[];
 }): any {
   throw new Error("Function not implemented.");
 }

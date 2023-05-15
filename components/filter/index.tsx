@@ -1,9 +1,9 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/hook/reduxHook";
 import {
-  filterCatgory,
+  filterCategory,
   filterPrice,
-  getAllCatgories,
+  getAllCatagories as getAllCatagories,
   filterShowSet,
 } from "@/store/products";
 import { CheckIcon } from "@heroicons/react/24/outline";
@@ -13,8 +13,8 @@ import InputRange from "../range";
 export default function Filter() {
   const dispatch = useAppDispatch();
   const {
-    catograies,
-    filteredCatgories,
+    catagories,
+    filteredCatagories,
     products,
     sortType,
     maxPrice,
@@ -25,15 +25,15 @@ export default function Filter() {
   const [minPriceVal, setMinPriceVal] = useState<number>(0);
 
   useEffect(() => {
-    if (!catograies.length) dispatch(getAllCatgories());
-  }, [catograies.length, dispatch]);
+    if (!catagories.length) dispatch(getAllCatagories());
+  }, [catagories.length, dispatch]);
 
   const checked = (e: any) => {
     const inputValue: string = e.target.value;
     dispatch(
-      filterCatgory({
+      filterCategory({
         category: inputValue,
-        catograies: [...filteredCatgories],
+        catagories: [...filteredCatagories],
       })
     );
   };
@@ -42,7 +42,7 @@ export default function Filter() {
     const unsubscribe = setTimeout(() => {
       dispatch(
         filterPrice({
-          catograies: [...filteredCatgories],
+          catagories: [...filteredCatagories],
           products: [...products],
           sortType,
           maxPrice: maxPriceVal,
@@ -53,7 +53,7 @@ export default function Filter() {
     return () => clearTimeout(unsubscribe);
   }, [
     dispatch,
-    filteredCatgories,
+    filteredCatagories,
     maxPrice,
     maxPriceVal,
     minPrice,
@@ -80,11 +80,11 @@ export default function Filter() {
       ></div>
       <div className="max-w-[300px] bg-white h-full">
         <div className="py-4 px-5 mb-8 h-[70px] flex w-full justify-between items-center bg-[#828BB3] ">
-          <h2 className="text-[1.3rem] text-white">Catogries</h2>
+          <h2 className="text-[1.3rem] text-white">catagories</h2>
         </div>
 
         <ul className="flex gap-4 flex-col px-4 max-h-[300px] overflow-auto">
-          {catograies.map((cat, index) => (
+          {catagories.map((cat, index) => (
             <li key={index} className="grow flex justify-between relative">
               <input
                 type="checkbox"

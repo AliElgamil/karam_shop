@@ -1,3 +1,5 @@
+import products from "@/store/products";
+
 // Global Types
 export type product = {
   images: string[];
@@ -9,17 +11,19 @@ export type product = {
   totalPrice?: number;
   category?: {
     name: string;
+    id?: number;
   };
   percentageDeal?: string;
   url?: string;
+  description?: string;
 };
 
 // Redux Types
 export type products = {
   products: product[];
-  filtredProducts: product[];
-  catograies: string[];
-  filteredCatgories: string[];
+  filteredProducts: product[];
+  catagories: string[];
+  filteredCatagories: string[];
   slides: product[][];
   slide: product[];
   sortType: string;
@@ -28,6 +32,7 @@ export type products = {
   maxPrice: number;
   minPrice: number;
   filterShow: boolean;
+  singleProduct: null | product;
 };
 export type category = {
   name: string;
@@ -35,7 +40,7 @@ export type category = {
 
 export type filterProps = {
   products: product[];
-  catograies: string[];
+  catagories: string[];
 };
 
 export type getSlideProps = {
@@ -47,13 +52,13 @@ export type sortProductsProps = {
   type: string;
 };
 
-export type filterCatgoryProps = {
+export type filterCategoryProps = {
   category: string;
-  catograies: string[];
+  catagories: string[];
 };
 
 export type filterPriceProps = {
-  catograies: string[];
+  catagories: string[];
   products: product[];
   sortType: string;
   maxPrice: number;

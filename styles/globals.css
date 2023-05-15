@@ -131,12 +131,12 @@ main {
   background: url("../public/prev.png.webp") no-repeat center;
 }
 
-.products .swiper-button-next {
+:is(.products, .suggested) .swiper-button-next {
   right: 0;
   background: url("../public/next.webp") no-repeat center;
 }
 
-.products .swiper-button-prev {
+:is(.products, .suggested) .swiper-button-prev {
   right: 60px;
   background: url("../public/prev.webp") no-repeat center;
 }
@@ -335,4 +335,30 @@ main {
 
 .input_range {
   --wa: 44 100% 50%;
+}
+
+.single_product .swiper-pagination {
+  inset: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+}
+
+.single_product .swiper-wrapper {
+  height: auto;
+}
+
+.single_product .swiper-pagination-bullet {
+  opacity: 1;
+  height: 6px;
+  width: 30px;
+  background-color: #fff;
+  border-radius: 6px;
+}
+.single_product .swiper-pagination-bullet-active {
+  background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
 }

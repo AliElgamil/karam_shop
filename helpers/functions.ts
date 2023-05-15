@@ -16,13 +16,13 @@ export const slideSlices: (products: product[]) => product[][] = (products) => {
 
 export const filter: (
   products: product[],
-  filteredCatgories: string[],
+  filteredCatagories: string[],
   maxPrice: number,
   minPrice: number
-) => product[] = (products, filteredCatgories, maxPrice, minPrice) => {
+) => product[] = (products, filteredCatagories, maxPrice, minPrice) => {
   const productsfiltred = products.filter((p) => {
     return (
-      filteredCatgories.includes(p.category ? p.category?.name : "") &&
+      filteredCatagories.includes(p.category ? p.category?.name : "") &&
       p.finalPrice > minPrice &&
       p.finalPrice < maxPrice
     );

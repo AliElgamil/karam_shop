@@ -11,7 +11,9 @@ type pagesProps = {
 
 export default function Pages({ pageNumber }: pagesProps) {
   const router = useRouter();
-  const { filtredProducts, slides } = useAppSelector((state) => state.products);
+  const { filteredProducts, slides } = useAppSelector(
+    (state) => state.products
+  );
   const start = useCallback(() => {
     const startNumber = pageNumber - 1;
     if (pageNumber === 1) return 1;
@@ -82,7 +84,7 @@ export default function Pages({ pageNumber }: pagesProps) {
       {
         <li
           className={`${
-            pageNumber === slides.length || !filtredProducts.length
+            pageNumber === slides.length || !filteredProducts.length
               ? "hide_btn opacity-70 pointer-events-none"
               : "cursor-pointer"
           } place-content-center w-[40px] h-[30px] grid`}

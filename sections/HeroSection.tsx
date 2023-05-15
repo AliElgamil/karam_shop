@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper";
 import Image from "next/image";

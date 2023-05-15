@@ -1,11 +1,10 @@
 import {
   product,
   products,
-  filterProps,
   getSlideProps,
   sortProductsProps,
   category,
-  filterCatgoryProps,
+  filterCategoryProps,
   filterPriceProps,
 } from "@/helpers/types";
 import {
@@ -20,9 +19,9 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: products = {
   products: [],
-  filtredProducts: [],
-  catograies: [],
-  filteredCatgories: [],
+  filteredProducts: [],
+  catagories: [],
+  filteredCatagories: [],
   slides: [],
   slide: [],
   sortType: "",
@@ -31,6 +30,7 @@ const initialState: products = {
   maxPrice: 5000,
   minPrice: 0,
   filterShow: false,
+  singleProduct: null,
 };
 
 export const getAllProducts = createAsyncThunk<product[]>(
@@ -47,8 +47,8 @@ export const getAllProducts = createAsyncThunk<product[]>(
     return products;
   }
 );
-export const getAllCatgories = createAsyncThunk<category[]>(
-  "productSlice/getAllCatgories",
+export const getAllCatagories = createAsyncThunk<category[]>(
+  "productSlice/getAllCatagories",
   async () => {
     const url = `${PRODUCT_API}/categories/`;
     const res = await fetch(url);
@@ -77,24 +77,24 @@ const productSlice = createSlice({
       const { type } = action.payload;
       state.sortType = type;
     },
-    filterCatgory: (state, action: PayloadAction<filterCatgoryProps>) => {
-      const { category, catograies } = action.payload;
-      const existingCategory = catograies.includes(category);
-      let filteredCatgories: string[];
+    filterCategory: (state, action: PayloadAction<filterCategoryProps>) => {
+      const { category, catagories } = action.payload;
+      const existingCategory = catagories.includes(category);
+      let filteredCatagories: string[];
 
       if (existingCategory) {
-        filteredCatgories = catograies.filter((cat) => category !== cat);
+        filteredCatagories = catagories.filter((cat) => category !== cat);
       } else {
-        filteredCatgories = [...catograies, category];
+        filteredCatagories = [...catagories, category];
       }
 
-      state.filteredCatgories = [...filteredCatgories];
+      state.filteredCatagories = [...filteredCatagories];
     },
     filterPrice: (state, action: PayloadAction<filterPriceProps>) => {
-      const { catograies, products, sortType, maxPrice, minPrice } =
+      const { catagories, products, sortType, maxPrice, minPrice } =
         action.payload;
 
-      const filterProducts = filter(products, catograies, maxPrice, minPrice);
+      const filterProducts = filter(products, catagories, maxPrice, minPrice);
 
       const sort = ProductSorted([...filterProducts], sortType);
       const slides = slideSlices([...sort]);
@@ -103,6 +103,16 @@ const productSlice = createSlice({
     },
     filterShowSet: (state, action: PayloadAction<boolean>) => {
       state.filterShow = action.payload;
+    },
+    getProduct: (
+      state,
+      action: PayloadAction<{ products: product[]; id: number }>
+    ) => {
+      const { products, id } = action.payload;
+
+      const product = products.find((product) => product.id === id);
+
+      state.singleProduct = product ? product : null;
     },
   },
   extraReducers: (builder) => {
@@ -117,17 +127,17 @@ const productSlice = createSlice({
     builder.addCase(getAllProducts.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(getAllCatgories.fulfilled, (state, { payload }) => {
+    builder.addCase(getAllCatagories.fulfilled, (state, { payload }) => {
       const categories = payload.map((category) => category.name);
-      state.catograies = categories;
-      state.filteredCatgories = categories;
+      state.catagories = categories;
+      state.filteredCatagories = categories;
       state.isLoading = false;
     });
-    builder.addCase(getAllCatgories.rejected, (state) => {
+    builder.addCase(getAllCatagories.rejected, (state) => {
       state.error = true;
       state.isLoading = false;
     });
-    builder.addCase(getAllCatgories.pending, (state) => {
+    builder.addCase(getAllCatagories.pending, (state) => {
       state.isLoading = true;
     });
   },
@@ -136,9 +146,10 @@ const productSlice = createSlice({
 export const {
   getSlide,
   sortProducts,
-  filterCatgory,
+  filterCategory,
   filterPrice,
   filterShowSet,
+  getProduct,
 } = productSlice.actions;
 
 export default productSlice.reducer;
