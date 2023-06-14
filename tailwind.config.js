@@ -27,5 +27,5 @@ module.exports = {
       sans: "Poppins, sans-serif",
     },
   },
-  plugins: [require("autoprefixer"),require('daisyui')],
+  plugins: [require("autoprefixer"), require("daisyui")],
 };

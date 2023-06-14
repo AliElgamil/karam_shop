@@ -30,8 +30,8 @@ const cartSlice = createSlice({
     addToCart: (state, action: PayloadAction<product>) => {
       const newItem = action.payload;
       const existItem = state.cartItems.find((item) => item.id === newItem.id);
-      state.totalQuantity++;
-      state.totalPrice += newItem.finalPrice;
+      state.totalQuantity += newItem.quantity;
+      state.totalPrice += newItem.finalPrice * newItem.quantity;
 
       if (!existItem) {
         state.cartItems.push({
@@ -44,8 +44,9 @@ const cartSlice = createSlice({
           images: newItem.images ? newItem.images : [],
         });
       } else {
-        existItem.quantity++;
-        if (existItem.totalPrice) existItem.totalPrice += newItem.finalPrice;
+        existItem.quantity += newItem.quantity;
+        if (existItem.totalPrice)
+          existItem.totalPrice += newItem.finalPrice * newItem.quantity;
       }
     },
     inCreaseItem(state, action: PayloadAction<number>) {

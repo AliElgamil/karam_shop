@@ -13,21 +13,38 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
 import { dealOff } from "@/helpers/functions";
 import ProductSlide from "@/components/productSlide";
-import { Fragment } from "react";
+import { Fragment, useRef } from "react";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { productStyle } from "@/components/styles";
+import { useAppDispatch } from "@/hook/reduxHook";
+import { addToCart } from "@/store/cart";
 
 export default function Product({
   product,
   suggestedProduct,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log(product);
-  const renderBullet = (index: number, className: string) => {
-    const item = product.images[index];
+  const dispatch = useAppDispatch();
+  const inputQun = useRef<HTMLInputElement>(null);
+  const renderBullet = (_: any, className: string) => {
     return `<span class="${className}"></span>`;
   };
 
   const { finalPrice, percentageDeal } = dealOff(product.price);
+
+  const addToCard = (e: any) => {
+    e.preventDefault();
+    const qun = inputQun.current?.value ? +inputQun.current?.value : 1;
+    dispatch(
+      addToCart({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        finalPrice,
+        quantity: qun,
+        images: product.images,
+      })
+    );
+  };
 
   return (
     <div className="single_product">
@@ -95,13 +112,18 @@ export default function Product({
               </p>
 
               <div className="pt-[30px]">
-                <form action="" className="flex gap-2 items-center">
+                <form
+                  action=""
+                  className="flex gap-2 items-center"
+                  onSubmit={addToCard}
+                >
                   <input
                     type="number"
                     placeholder="Type here"
                     min={1}
                     defaultValue={1}
                     className="input input-bordered input-warning w-[150px] max-w-xs bg-transparent"
+                    ref={inputQun}
                   />
                   <button
                     type="submit"
