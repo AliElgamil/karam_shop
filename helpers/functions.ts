@@ -65,6 +65,7 @@ export const dealOff: (price: number) => {
   const randomIndex = Math.abs(
     Math.ceil(Math.random() * randomSale.length - 1)
   );
+
   const finalPrice =
     price > randomSale[randomIndex] + 50
       ? price - randomSale[randomIndex]
