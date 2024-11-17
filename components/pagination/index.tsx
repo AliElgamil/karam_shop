@@ -5,9 +5,13 @@ import Pages from "./pages";
 import Sort from "./sort";
 import { useAppSelector } from "@/hook/reduxHook";
 import { Fragment } from "react";
-import LottieImage from "../lottieImage";
 import Link from "next/link";
 import FilterButton from "./filter";
+import dynamic from "next/dynamic";
+const LottieImage = dynamic(() => import("../lottieImage"), {
+  ssr: false,
+  loading: () => <div>Loading animation...</div>,
+});
 
 type slides = {
   slide: product[];

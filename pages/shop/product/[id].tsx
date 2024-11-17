@@ -195,6 +195,6 @@ export const getStaticProps: GetStaticProps<dataProps> = async (context) => {
       product,
       suggestedProduct,
     },
-    revalidate: 60,
+    revalidate: 60 * 60 * 24,
   };
 };

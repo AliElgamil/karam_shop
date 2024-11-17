@@ -1,5 +1,3 @@
-import products from "@/store/products";
-
 // Global Types
 export type product = {
   images: string[];

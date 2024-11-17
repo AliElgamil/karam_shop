@@ -10,6 +10,7 @@ export default function LottieData({ src }: props) {
     const getJson = async () => {
       const res = await fetch(src);
       const data = await res.json();
+      console.log(data);
       setData(data);
     };
     getJson();
