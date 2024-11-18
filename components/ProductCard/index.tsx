@@ -7,6 +7,7 @@ import { addToCart } from "@/store/cart";
 import { product } from "@/helpers/types";
 import Link from "next/link";
 import { SHOP } from "@/routes";
+import { dealOff } from "@/helpers/functions";
 
 type productProps = {
   product: product;
@@ -27,6 +28,8 @@ export default function ProductCard({ product }: productProps) {
       })
     );
 
+  const { finalPrice, percentageDeal } = dealOff(product.price);
+
   return (
     <div
       className={`flex-col flex items-center justify-center gap-5 px-4 group`}
@@ -42,14 +45,12 @@ export default function ProductCard({ product }: productProps) {
       <div className="flex flex-col items-start w-full gap-4 max-w-[500px] transition duration-700 delay-200">
         <h3 className="text-head-color font-bold ">{product.title}</h3>
         <p className="flex gap-2 items-center">
-          <span className="text-head-color font-bold">
-            ${product.finalPrice}
-          </span>
-          {product.percentageDeal === "0%" ? null : (
+          <span className="text-head-color font-bold">${finalPrice}</span>
+          {percentageDeal === "0%" ? null : (
             <Fragment>
               <del>${product.price}</del>
               <span className="text-white bg-red-600 p-1 rounded-sm">
-                {product.percentageDeal} off
+                {percentageDeal} off
               </span>
             </Fragment>
           )}
