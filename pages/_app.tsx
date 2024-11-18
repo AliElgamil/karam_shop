@@ -3,13 +3,17 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Suspense } from "react";
 import Loading from "./loading";
+import Transition from "@/components/transition";
+import { AnimatePresence } from "framer-motion";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Suspense fallback={<Loading />}>
-        <Component {...pageProps} />
-      </Suspense>
-    </Layout>
+    <AnimatePresence mode="wait">
+      <Layout>
+        <Suspense fallback={<Loading />}>
+          <Component {...pageProps} />
+        </Suspense>
+      </Layout>
+    </AnimatePresence>
   );
 }

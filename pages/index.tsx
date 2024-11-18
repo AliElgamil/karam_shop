@@ -7,6 +7,7 @@ import Products from "@/sections/Products";
 import DealArea from "@/sections/DealArea";
 import Brands from "@/sections/Brands";
 import { PRODUCT_API } from "@/routes";
+import Transition from "@/components/transition";
 
 const productSection = [
   {
@@ -19,7 +20,7 @@ const productSection = [
 
 export default function Home() {
   return (
-    <>
+    <Transition>
       <Helmet title="Home" />
       <Banner>
         <HeroSection />
@@ -35,6 +36,6 @@ export default function Home() {
       ))}
       <DealArea />
       <Brands />
-    </>
+    </Transition>
   );
 }
